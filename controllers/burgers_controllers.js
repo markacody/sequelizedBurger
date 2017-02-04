@@ -17,14 +17,27 @@ router.get('/', function(req,res){
     });
 });
     
-    
-//NOTE: The post route adds a burger, passing column names as an array and creating a matching array of values by parsing the incoming data with the body method. This route responds with a redirect to the index page whereupon selectAll is run again on arrival
-//router.post("/");
-//NOTE: The put route updates the devoured status of the burger, using the id and the params method to locate the row and the body method to update with a new value
-//router.put("/:id");
-    //NOTE: invoke the function, specify the column and new value in an object literal, then specify the id of the row to be updated with the variable declared and assigned above, devoured. In a callback function redirect to the index whereupon the select all function is run again.
-  //  burger.updateOne({});
-//});
+//NOTE: The post route adds a burger to the database using the Create method on the Burger model
+
+    router.post("/", function(req, res) {
+
+        // Create a variable to hold the request body
+        var burger = req.body;
+
+        // Add the burger to the database using sequelize
+        Burger.create({
+          burger_name: burger.burger_name,
+          devoured: burger.devoured
+        }).then(function(result){
+            res.redirect('/');
+        });
+
+      });
+
+//NOTE: The update route changes the devoured status of the burger, using the id and the params method to locate the row and the body method to update with a new value
+
+//router.update("/:id");
+
 
 //EXPORT THE ROUTER
 module.exports = router;
