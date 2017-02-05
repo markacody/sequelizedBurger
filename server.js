@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var override = require('method-override');
+var methodOverride = require('method-override');
 
 //CREATE SERVER OBJECT and ASSIGN PORT
 var app = express();
@@ -14,6 +14,7 @@ app.use(express.static(process.cwd() + "/public"));
 //Parse data posted from a form
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
+app.use(methodOverride('_method'));
 
 //Announce the use of handlebars
 var exphbs = require("express-handlebars");

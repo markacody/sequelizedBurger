@@ -18,25 +18,31 @@ router.get('/', function(req,res){
 });
     
 //NOTE: The post route adds a burger to the database using the Create method on the Burger model
-
-    router.post("/", function(req, res) {
-
-        // Create a variable to hold the request body
-        var burger = req.body;
-
-        // Add the burger to the database using sequelize
-        Burger.create({
-          burger_name: burger.burger_name,
-          devoured: burger.devoured
-        }).then(function(result){
-            res.redirect('/');
-        });
-
-      });
+router.post("/", function(req, res) {
+    // Create a variable to hold the request body
+    var burger = req.body;
+    // Add the burger to the database using sequelize
+    Burger.create({
+      burger_name: burger.burger_name,
+      devoured: burger.devoured
+    }).then(function(result){
+        res.redirect('/');
+    });
+});
 
 //NOTE: The update route changes the devoured status of the burger, using the id and the params method to locate the row and the body method to update with a new value
-
-//router.update("/:id");
+router.put("/:id", function(req, res){
+    var dinner = req.body;
+    //var condition = "id = " + req.params.id;
+    Burger.update(
+        {
+            devoured: dinner.devoured
+        },{
+            where: {id: req.params.id}
+        }).then(function(result) {
+            res.redirect('/');
+        });
+});
 
 
 //EXPORT THE ROUTER
