@@ -1,16 +1,17 @@
-//build sequelized model of the database tables here.
-var Sequelize = require("sequelize");
-// sequelize (lowercase) references our connection to the DB.
-var sequelize = require("../config/connection.js");
+module.exports = function(sequelize, DataTypes) {
+    var Burger = sequelize.define("Burger", {
+        burger_name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                len: [1]
+            }
+        },
+        devoured: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        }
+    });
 
-var Burger = sequelize.define("burgers", {
-  burger_name: Sequelize.STRING,
-  devoured: Sequelize.BOOLEAN
-}
-);
-
-// Syncs with DB
-Burger.sync();
-
-// Makes the Character Model available for other files (will also create a table)
-module.exports = Burger;
+    return Burger;
+};

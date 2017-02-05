@@ -1,14 +1,15 @@
 //REQUIRE EXPRESS and CREATE A ROUTER
 var express = require('express');
 var router = express.Router();
+var bodyParser = require('body-parser');
 
-//IMPORT THE MODEL
-var Burger = require('../models/burger.js');
+//IMPORT THE MODELS
+var db = require ('../models');
 
 //CREATE ROUTES - for each applicable http method and path - associate the request with a mysql transaction and associate the response with a display using handlebars with html
 //NOTE: The get route looks up all burgers, assembles the data returned in a handlebars object, and responds using the render method on results and passing in the handlebars object
 router.get('/', function(req,res){
-    Burger.findAll().then(function(data){
+    db.Burger.findAll().then(function(data){
         var hbsObject = {
             burgers: data
         };
@@ -22,7 +23,7 @@ router.post("/", function(req, res) {
     // Create a variable to hold the request body
     var burger = req.body;
     // Add the burger to the database using sequelize
-    Burger.create({
+    db.Burger.create({
       burger_name: burger.burger_name,
       devoured: burger.devoured
     }).then(function(result){
@@ -34,7 +35,7 @@ router.post("/", function(req, res) {
 router.put("/:id", function(req, res){
     var dinner = req.body;
     //var condition = "id = " + req.params.id;
-    Burger.update(
+    db.Burger.update(
         {
             devoured: dinner.devoured
         },{
