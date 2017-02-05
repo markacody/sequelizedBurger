@@ -1,11 +1,12 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+//var handlebars = require('express-handlebars');
 
 //CREATE SERVER OBJECT and ASSIGN PORT
 var app = express();
 
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 8080;
 
 //MIDDLEWARE - intercept incoming data for parsing
 //Serve static files from the public directory
@@ -25,7 +26,8 @@ app.set("view engine", "handlebars");
 var routes = require("./controllers/burgers_controllers.js");
 app.use("/", routes);
 
-//START APP SERVER and bind to the port number
-app.listen(PORT, function(){
-    console.log('App listening on PORT: '+PORT);
+//START APP SERVER and bind to the port number 
+
+app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
 });
